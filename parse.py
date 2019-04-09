@@ -50,7 +50,7 @@ def parse_educations(soup):
     for item in soup.select('#education-section li'):
         education = {}
         education['school'] = item.select_one('.pv-entity__school-name').text.strip()
-        for p in item.select('pv-entity__summary-info p'):
+        for p in item.select('.pv-entity__summary-info p'):
             print(p)
             record_selection(p.select('span'), education)
         educations.append(education)
@@ -83,8 +83,8 @@ if __name__ == '__main__':
         if not re.match('.+.html$', fname):
             continue
         i+=1
-        # if i > 3:
-            # break
+        if i > 3:
+            break
         print('parsing', fname)
         with open(folder/fname, 'r') as f:
             html = f.read()
@@ -92,10 +92,10 @@ if __name__ == '__main__':
             if result['name'] != None:
                 results.append(result)
         
-    # pp.pprint(results)
+    pp.pprint(results)
 
-    with open('./profiles.p', 'wb') as f:
-        pickle.dump(results, f) 
+    # with open('./profiles.p', 'wb') as f:
+    #     pickle.dump(results, f) 
         
-    with open('./profiles2.json', 'w') as f:
-        json.dump(results, f)
+    # with open('./profiles2.json', 'w') as f:
+    #     json.dump(results, f)
